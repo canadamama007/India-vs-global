@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PPP Salary Comparator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial; background: #111; color: white; padding: 20px; }
+    label, input, select, button { display: block; margin: 10px 0; font-size: 16px; }
+    input, select { padding: 8px; width: 100%; max-width: 300px; }
+    .result { margin-top: 20px; background: #222; padding: 20px; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🌍 PPP Salary Comparison</h1>
+  <label>Enter Indian Annual Salary (INR):</label>
+  <input type="number" id="salaryINR" placeholder="e.g., 2500000">
+
+  <label>Select Country:</label>
+  <select id="countrySelect">
+    <option value="Canada">Canada</option>
+    <option value="USA">USA</option>
+    <option value="UK">UK</option>
+  </select>
+
+  <button onclick="calculatePPP()">Compare</button>
+
+  <div class="result" id="output"></div>
+
+  <script>
+    const comparisonData = {
+      Canada: { rate: 0.0161, ppp: 0.0541, symbol: "C$" },
+      USA: { rate: 0.0117, ppp: 0.041, symbol: "$" },
+      UK: { rate: 0.0087, ppp: 0.030, symbol: "£" },
+    };
+
+    function calculatePPP() {
+      const salary = parseFloat(document.getElementById('salaryINR').value);
+      const country = document.getElementById('countrySelect').value;
+      const data = comparisonData[country];
+
+      if (!salary || salary <= 0) {
+        document.getElementById('output').innerHTML = 'Please enter a valid salary.';
+        return;
+      }
+
+      const direct = (salary * data.rate).toFixed(2);
+      const ppp = (salary * data.ppp).toFixed(2);
+
+      document.getElementById('output').innerHTML = `
+        <h3>${country} Salary Comparison</h3>
+        <p><b>Direct Exchange:</b> ${data.symbol}${direct}</p>
+        <p><b>PPP Equivalent:</b> ${data.symbol}${ppp}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
