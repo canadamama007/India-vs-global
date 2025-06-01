@@ -1,58 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>PPP Salary Comparator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PPP Salary Comparison</title>
   <style>
-    body { font-family: Arial; background: #111; color: white; padding: 20px; }
-    label, input, select, button { display: block; margin: 10px 0; font-size: 16px; }
-    input, select { padding: 8px; width: 100%; max-width: 300px; }
-    .result { margin-top: 20px; background: #222; padding: 20px; border-radius: 10px; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #1a237e, #283593);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background-color: #1f2937;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #cbd5e0;
+      margin-bottom: 2rem;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 1rem 0 0.3rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 1rem;
+      background-color: #e5e7eb;
+      color: black;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-direction: column;
+    }
+
+    .button {
+      flex: 1;
+      padding: 0.9rem;
+      border: none;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+    }
+
+    .purple {
+      background-color: #a855f7;
+      color: white;
+    }
+
+    .teal {
+      background-color: #10b981;
+      color: white;
+    }
+
+    @media (min-width: 500px) {
+      .button-row {
+        flex-direction: row;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>🌍 PPP Salary Comparison</h1>
-  <label>Enter Indian Annual Salary (INR):</label>
-  <input type="number" id="salaryINR" placeholder="e.g., 2500000">
+  <div class="card">
+    <h1>Global Salary & PPP Comparison</h1>
+    <p>Enter your annual Indian salary and select a country to estimate equivalent earnings for a similar standard of living.</p>
 
-  <label>Select Country:</label>
-  <select id="countrySelect">
-    <option value="Canada">Canada</option>
-    <option value="USA">USA</option>
-    <option value="UK">UK</option>
-  </select>
+    <label for="salary">Your Annual Indian Salary (INR)</label>
+    <input type="number" id="salary" placeholder="e.g., 900000" />
 
-  <button onclick="calculatePPP()">Compare</button>
+    <label for="country">Compare against:</label>
+    <select id="country">
+      <option>Canada</option>
+      <option>USA</option>
+      <option>UK</option>
+    </select>
 
-  <div class="result" id="output"></div>
-
-  <script>
-    const comparisonData = {
-      Canada: { rate: 0.0161, ppp: 0.0541, symbol: "C$" },
-      USA: { rate: 0.0117, ppp: 0.041, symbol: "$" },
-      UK: { rate: 0.0087, ppp: 0.030, symbol: "£" },
-    };
-
-    function calculatePPP() {
-      const salary = parseFloat(document.getElementById('salaryINR').value);
-      const country = document.getElementById('countrySelect').value;
-      const data = comparisonData[country];
-
-      if (!salary || salary <= 0) {
-        document.getElementById('output').innerHTML = 'Please enter a valid salary.';
-        return;
-      }
-
-      const direct = (salary * data.rate).toFixed(2);
-      const ppp = (salary * data.ppp).toFixed(2);
-
-      document.getElementById('output').innerHTML = `
-        <h3>${country} Salary Comparison</h3>
-        <p><b>Direct Exchange:</b> ${data.symbol}${direct}</p>
-        <p><b>PPP Equivalent:</b> ${data.symbol}${ppp}</p>
-      `;
-    }
-  </script>
+    <div class="button-row">
+      <button class="button purple">✨ Get Cost of<br />Living Insights ✨</button>
+      <button class="button teal">✨ Get Job<br />Market Snapshot ✨</button>
+    </div>
+  </div>
 </body>
 </html>
